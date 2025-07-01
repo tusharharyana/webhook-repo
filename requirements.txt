@@ -2,4 +2,4 @@ Flask
 Flask-Cors
 Flask-Login
 Flask-PyMongo
-pymongo
+pymongo==4.3.3  # To avoid compatibility issues between flask-pymongo and pymongo>=5.x on Python 3.12

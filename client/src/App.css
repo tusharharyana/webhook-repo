@@ -1,0 +1,13 @@
+.App {
+  padding: 2rem;
+  font-family: sans-serif;
+  background: #f6f8fa;
+}
+
+.event-card {
+  background: white;
+  border-left: 4px solid #007bff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

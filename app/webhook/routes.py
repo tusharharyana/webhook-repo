@@ -30,13 +30,18 @@ def receiver():
             event["to_branch"] = data.get("ref", "").split("/")[-1]
 
         elif action == "PULL_REQUEST":
+            pr = data.get("pull_request", {})
+            pr_action = data.get("action")
+            is_merged = pr.get("merged", False)
+
+            # Detect a merge event
+            if pr_action == "closed" and is_merged:
+                event["action"] = "MERGE"
+
             event["request_id"] = str(data.get("number"))  # PR ID
             event["author"] = data.get("sender", {}).get("login")
-            event["from_branch"] = data.get("pull_request", {}).get("head", {}).get("ref")
-            event["to_branch"] = data.get("pull_request", {}).get("base", {}).get("ref")
-
-        elif action == "MERGE":
-            pass
+            event["from_branch"] = pr.get("head", {}).get("ref")
+            event["to_branch"] = pr.get("base", {}).get("ref")
 
         else:
             return jsonify({"message": f"Unhandled event type: {action}"}), 400
